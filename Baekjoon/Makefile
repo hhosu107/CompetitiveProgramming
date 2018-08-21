@@ -1,2 +1,2 @@
 %: %.cpp
-	g++ --std=c++17 -g $< -o ./bin/$@
+	g++ --std=c++17 -g $< -o bin/$@
