@@ -4,16 +4,17 @@
 #include<iostream>
 using namespace std;
 
-vector<int> perm;
+// vector<int> perm;
+int perm[8];
 int main(){
     int n;
     cin >> n;
-    perm = vector<int>(n);
+    // perm = vector<int>(n);
     for(int i=0; i<n; i++)
         perm[i] = i+1;
     do{
-      for(int elmt : perm){
-        cout << elmt << " ";
+      for(int i=0; i<n; i++){
+        cout << perm[i] << " ";
       } cout << endl;
       int firstRev = -1;
       for(int i=n-2; i>=0; i--){
@@ -33,8 +34,11 @@ int main(){
                   leastUpperIndex = i;
               }
           }
-          iter_swap(perm.begin() + firstRev, perm.begin() + leastUpperIndex);
-          sort(perm.begin() + firstRev + 1, perm.end());
+          perm[firstRev] = perm[leastUpperIndex];
+          perm[leastUpperIndex] = pivot;
+          sort(perm + firstRev + 1, perm+n);
+          // iter_swap(perm.begin() + firstRev, perm.begin() + leastUpperIndex);
+          // sort(perm.begin() + firstRev + 1, perm.end());
       }
     }while(1);
     return 0;
