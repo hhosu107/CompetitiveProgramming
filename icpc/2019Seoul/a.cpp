@@ -4,6 +4,7 @@
 #include<algorithm>
 using namespace std;
 
+// A: just compute all disabled numbers, sort, and exclude all positive integers from 1.
 int main(){
   int a[1001];
   a[0] = a[1] = 1;
