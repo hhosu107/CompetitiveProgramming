@@ -35,3 +35,12 @@ int main(){
   }
   return 0;
 }
+
+int gcd(int a, int b){
+  if (a%b == 0) return a;
+  else return (b, a%b);
+}
+
+int lcm(int a, int b){
+  return a * b / gcd(a, b);
+}
