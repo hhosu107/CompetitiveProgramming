@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, q;
+long long arr[200004], BIT1[200004], BIT2[200004];
+
+long long sum(long long* arr, int idx){
+	long long ret = 0;
+	while(idx){
+		ret += arr[idx];
+		idx -= (idx & -idx);
+	}
+	return ret;
+}
+
+void update(long long*arr, int idx, long long val){
+	while(idx <= n){
+		arr[idx] += val;
+		idx += (idx & -idx);
+	}
+}
+
+void solve(){
+	cin>>n>>q;
+	long long ret = 0;
+	BIT1[0] = 0, BIT2[0] = 0;
+	for(int i = 1; i <= n; i++)	BIT1[i] = 0, BIT2[i] = 0;
+	int tmp;
+	int sgn = 1;
+	for(int i = 1; i<=n; i++){
+		cin>>tmp;
+		arr[i] = tmp;
+		update(BIT1, i, 1ll*sgn*i*tmp);
+		update(BIT2, i, 1ll*sgn*tmp);
+		sgn *= -1;
+	}
+	char c;
+	int l, r;
+	while(q--){
+		cin>>c>>l>>r;
+		if(c == 'Q'){
+			long long s = sum(BIT1, r) - sum(BIT1, l-1);
+			long long ss = sum(BIT2, r) - sum(BIT2, l-1);
+			s -= (l-1)*ss;
+			if(!(l % 2)) s *= -1;
+			ret += s;
+		}
+		else{
+			if(!(l % 2))	r *= -1, arr[l] *= -1;
+			update(BIT1, l, 1ll*l*r - 1ll*l*arr[l]);
+			update(BIT2, l, 1ll*r - 1ll*arr[l]);
+			arr[l] = r;
+			if(!(l%2))	arr[l] *= -1;
+		}
+	}
+	cout<<ret<<'\n';
+}
+
+int main() {
+	int TC;
+	cin>>TC;
+	for(int i = 1; i <= TC; i++){
+		cout<<"Case #"<<i<<": ";
+		solve();
+	}
+	return 0;
+}

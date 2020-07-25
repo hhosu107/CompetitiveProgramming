@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int r, c;
+char g[34][34];
+int cnt;
+bool visited[34][34];
+
+bool chk(int idx){
+	int ret = 0;
+	for(int i = 0; i < r; i++)
+		for(int j = 0; j < c; j++){
+			if(!visited[i][j] && g[i][j] == 'A'+idx)	ret++;
+			if(!visited[i][j] && g[i][j] != ('A'+idx))	continue;
+			if( i == r-1)	continue;
+			if(!visited[i+1][j] && g[i+1][j] != ('A'+idx))	return false;
+		}
+	if(!ret)	return false;
+	return true;
+}
+
+void fill(int idx){
+	for(int i = 0; i < r; i++)
+		for(int j = 0; j < c; j++)
+			if(g[i][j] == ('A' + idx))	visited[i][j] = true, cnt++;
+}
+
+void solve(){
+	memset(visited, 0, sizeof(visited));
+	cin>>r>>c;
+	for(int i = 0; i < r; i++)
+		for(int j = 0; j < c; j++)	cin>>g[i][j];
+	cnt = 0;
+	string ret = "";
+	while(cnt < r*c){
+		int cc = 0;
+		for(int i = 0; i < 26; i++)
+			if(chk(i)){
+				fill(i);
+				ret += ('A'+i);
+				cc++;
+			}
+		if(!cc && cnt < r*c){
+			cout<<"-1\n";
+			return;
+		}
+	}
+	cout<<ret<<'\n';
+}
+
+int main() {
+	int TC;
+	cin>>TC;
+	for(int i = 1; i <= TC; i++){
+		cout<<"Case #"<<i<<": ";
+		solve();
+	}
+	return 0;
+}
