@@ -15,8 +15,8 @@ using namespace std;
 
 char k[5] = "KICK";
 char s[6] = "START";
-int kick[33334];
-int stt[20001];
+int kick[25000];
+int stt[20000];
 int main(){
   std::ios_base::sync_with_stdio(false);
   std::cin.tie(NULL);
@@ -27,36 +27,32 @@ int main(){
     cin >> S;
     int len = S.length();
     int klen = 0, slen = 0;
-    int ks = 0;
-    int ss = 0;
+    int ks = 0, ke = 0;
+    int ss = 0, se = 0;
     for(int i=0; i<len; i++){
-      if(S[i] == k[i - ks]){
-        if (i - ks == 3){
+      if(S[ke] == k[ke - ks]){
+        ke++;
+        if (ke - ks == 4){
           kick[klen] = ks;
-          ks = i;
+          ks = ke = i + 1;
           klen++;
         }
-      } else {
-        if (S[i] == 'K') {
-          ks = i;
-        } else ks = i + 1;
-      }
-      if(S[i] == s[i - ss]){
-        if(i - ss == 4){
+      } else { ks = ke = i + 1; }
+      if(S[se] == s[se - ss]){
+        se++;
+        if(se - ss == 5){
           stt[slen] = ss;
-          ss = i + 1;
+          ss = se = i + 1;
           slen++;
         }
-      } else ss = i + 1;
+      } else { ss = se = i + 1; }
     }
     int ans = 0;
     int sidx = 0;
     for(int i=0; i<klen; i++){
       while(kick[i] > stt[sidx]) {
         sidx++;
-        if (sidx >= slen) break;
       }
-      if (sidx >= slen) break;
       ans += slen - sidx;
     }
     cout << "Case #" << t << ": " << ans << endl;
