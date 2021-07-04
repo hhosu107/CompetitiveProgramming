@@ -8,12 +8,14 @@
  * .size() : container size
  * .insert(el)
  * .erase(el): erase elements whose value is el
+ * .erase(iterator): erase an element at the iterator
  * .swap(multiset instance): swap contents with given instance
  * .clear(): make empty
  * .find(el): find value and return the iterator.
  * .count(el): find number of values in the multiset.
  * .lower_bound(el): return the iterator s.t. the element before iterator is smaller than el.
  * .upper_bound(el): return the iterator that is the first element (or multiset.end()) that is larger than el.
+ * Note: pq is much faster than multiset.
  */
 
 /*
