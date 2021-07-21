@@ -27,4 +27,4 @@ int main(){
    }
 }
 */
-// Use this as operator<. If you consider this as operator>, then set_instance.begin() will return the largest one.
+// Use this as operator<. (set<key_class, cmpByDist>) If you consider this as operator>, then set_instance.begin() will return the largest one.
