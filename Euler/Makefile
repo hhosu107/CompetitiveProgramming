@@ -1,2 +1,3 @@
 %: %.cpp
-	g++ --std=c++17 -g $< -o bin/$@
+	mkdir -p bin
+	g++ --std=c++20 -g $< -o bin/$@
