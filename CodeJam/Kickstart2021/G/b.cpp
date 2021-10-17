@@ -15,6 +15,12 @@ using namespace std;
  * Thus this one can be generalized as: (|x-a| + |x-b|)/2 - (b-a).
  * Thus, minimize sum (|x-a| + |x-b|) for (a, b) in furniture.
  * Thus, sort them; find middle point of nth and n+1th point.
+ * .....
+ * The above was wrong. Why?
+ * Google says that, suppose a(x) = number of points that strictly ahead of x; b(x) = number of points that are nonstrictly behind of x.
+ * In my case, if xs[K - 1] != xs[K], then I thought that (xs[K-1] + xs[K]) / 2 should also be the optimal point,
+ * since there are n points behind x; n points ahead x; thus distance summation doesn't change.
+ * But it was wrong. Should have to be verified.
  */
 int main(){
   std::ios_base::sync_with_stdio(false);
@@ -30,9 +36,21 @@ int main(){
     }
     sort(xs.begin(), xs.end());
     sort(ys.begin(), ys.end());
-    int cx = (xs[K - 1] + xs[K]) / 2;
-    int cy = (ys[K - 1] + ys[K]) / 2;
-    cout << "Case #" << t << ": " << cx << " " << cy << '\n';
+    int optx = xs[0];
+    int nonlarger = 1;
+    while(xs[nonlarger] == optx) nonlarger++;
+    while(nonlarger < K){
+      optx = xs[nonlarger];
+      while(xs[nonlarger] == optx) nonlarger++;
+    }
+    int opty = ys[0];
+    nonlarger = 1;
+    while(ys[nonlarger] == opty) nonlarger++;
+    while(nonlarger < K){
+      opty = ys[nonlarger];
+      while(ys[nonlarger] == opty) nonlarger++;
+    }
+    cout << "Case #" << t << ": " << optx << " " << opty << '\n';
   }
   return 0;
 }
