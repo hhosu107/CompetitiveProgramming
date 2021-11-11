@@ -1,10 +1,12 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 
 using namespace std;
 int main(){
   cin.sync_with_stdio(false);
   cin.tie(nullptr);
+  cout.tie(nullptr);
   int n;
   cin >> n;
   vector<int> elmts = vector<int>(n, 0);
