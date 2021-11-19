@@ -17,23 +17,27 @@ int main () {
   int currval = 0;
   vector<char> ops = vector<char>(2 * n);
   int opshead = 0;
+  bool valid = true;
   for(int i=0; i<n; i++){
     if (enteredVal < seq[i]) {
       for(int j=enteredVal+1; j<=seq[i]; j++){
         val[head++] = j;
         ops[opshead++] = '+';
       }
-      head--;
-      val[head] = 0;
       enteredVal = seq[i];
-      ops[opshead++] = '-';
     } else {
-      while(head > 0 && seq[i] >= val[head-1]) {
-        head--;
-        val[head] = 0;
-        ops[opshead++] = '-';
+      if (head == 0 || seq[i] != val[head-1]) {
+        valid = false;
+        break;
       }
     }
+    head--;
+    val[head] = 0;
+    ops[opshead++] = '-';
+  }
+  if (!valid){
+    cout << "NO\n";
+    return 0;
   }
   for(int i=0; i<2*n; i++)
     cout << ops[i] << '\n';
