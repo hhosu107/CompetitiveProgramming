@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 
 int main () {
@@ -11,12 +12,13 @@ int main () {
   int n;
   long long int m;
   cin >> n >> m;
-  vector<long long int> trees = vector<long long int>(n);
+  vector<long long int> trees = vector<long long int>(n + 1);
   for (auto &x: trees) {
     cin >> x;
   }
+  trees[n] = 0;
   sort(trees.begin(), trees.end());
-  long long int min = trees[0], max = trees[n-1];
+  long long int min = trees[0], max = trees[n];
   long long int ans = -1;
   while(min + 1 < max){
     long long int cen = (min + max) / 2;
