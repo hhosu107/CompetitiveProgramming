@@ -17,7 +17,7 @@ int main () {
   }
   int mincost = n * m * maxh * 2;
   int h = 0;
-  for(int i=0; i<=maxh; i++){
+  for(int i=maxh; i>=0; i--){
     int cost = 0;
     int moreb = 0;
     int needb = 0;
