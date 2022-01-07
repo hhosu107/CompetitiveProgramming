@@ -1,4 +1,4 @@
-def doom_nums(n: int) -> set:
+def doom_nums(n: int) -> list:
     doom_string = '666'
     doom_set = set([666])
     for x in range(1, n+1):
