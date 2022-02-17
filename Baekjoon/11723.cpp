@@ -6,6 +6,9 @@
 using namespace std;
 int contained;
 int main(){
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
   int m;
   cin >> m;
   string op;
@@ -18,11 +21,11 @@ int main(){
     }
     else if(op.compare("remove") == 0){
       cin >> index;
-      contained == contained & (-1 ^ (1 << index));
+      contained = contained & (-1 ^ (1 << index));
     }
     else if(op.compare("check") == 0){
       cin >> index;
-      cout << (contained >> index) & (1) << endl;
+      cout << ((contained >> index) & (1)) << '\n';
     }
     else if(op.compare("toggle") == 0){
       cin >> index;
