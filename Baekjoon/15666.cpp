@@ -5,7 +5,7 @@ using namespace std;
 
 vector<vector<int>> elems;
 
-void print_perm(int orig[], vector<int> a, vector<bool> used, int len, int maxlen, int upper_lim) {
+void print_perm(int orig[], vector<int> a, int len, int maxlen, int index, int upper_lim) {
   if (len == maxlen) {
     vector<int> elem(maxlen);
     for(int i=0; i<maxlen; i++) {
@@ -14,13 +14,10 @@ void print_perm(int orig[], vector<int> a, vector<bool> used, int len, int maxle
     elems.push_back(elem);
     return;
   } else {
-    for(int i=0; i<upper_lim; i++) {
-      if (!used[i]) {
-        used[i] = true;
-        a[len] = i;
-        print_perm(orig, a, used, len + 1, maxlen, upper_lim);
-        used[i] = false;
-      }
+    for(int i=index; i<upper_lim; i++) {
+      a[len] = i;
+      print_perm(orig, a, len + 1, maxlen, i, upper_lim);
+      a[len] = -1;
     }
   }
 }
@@ -42,8 +39,7 @@ int main () {
     }
   }
   vector<int> a(8, -1);
-  vector<bool> used(8, false);
-  print_perm(orig, a, used, 0, m, n);
+  print_perm(orig, a, 0, m, 0, n);
   sort(elems.begin(), elems.end());
   elems.erase(unique(elems.begin(), elems.end()), elems.end());
   for(int i=0; i<elems.size(); i++) {
