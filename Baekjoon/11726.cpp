@@ -1,16 +1,43 @@
 #include<iostream>
 #include<array>
+#include<vector>
 using namespace std;
 
-array<int, 1001> fib;
+using ll = long long;
+ll denom = 1000000007;
+
+vector<ll> matrix_fib(ll n) {
+  vector<ll> result(4, 0);
+  if (n == 0) {
+    result[0] = result[3] = 1;
+    result[1] = result[2] = 0;
+    return result;
+  }
+  if (n == 1) {
+    result[0] = result[1] = result[2] = 1;
+    result[3] = 0;
+    return result;
+  }
+  vector<ll> prev = matrix_fib(n/2);
+  result[0] = (prev[0] * prev[0] + prev[1] * prev[2]) % denom;
+  result[1] = (prev[0] * prev[1] + prev[1] * prev[3]) % denom;
+  result[2] = (prev[2] * prev[0] + prev[3] * prev[2]) % denom;
+  result[3] = (prev[2] * prev[1] + prev[3] * prev[3]) % denom;
+  if (n % 2 == 1) {
+    vector<ll> pad(4, 0);
+    pad[0] = (result[0] + result[1]) % denom;
+    pad[1] = (result[0]) % denom;
+    pad[2] = (result[2] + result[3]) % denom;
+    pad[3] = (result[2]) % denom;
+    return pad;
+  }
+  return result;
+}
 
 int main () {
-  int n;
+  ll n;
   cin >> n;
-  fib[0] = fib[1] = 1;
-  fib[2] = 2;
-  for(int i=3; i<=n; i++)
-    fib[i] = (fib[i-1] + fib[i-2]) % 10007;
-  cout << fib[n] << endl;
+  vector<ll> result = matrix_fib(n);
+  cout << result[1] << endl;
   return 0;
 }
