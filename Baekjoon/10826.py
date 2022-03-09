@@ -6,4 +6,4 @@ for i in range(n):
     t = x + y
     x = y
     y = t
-print(x)
+print(f'{x} {n - 2}')
