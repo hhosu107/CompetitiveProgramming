@@ -41,6 +41,6 @@ int main () {
   cout.tie(nullptr);
   cin >> n;
   vector<ll> result = matrix_fib(n);
-  cout << result[1] << endl;
+  cout << result[1] << ' ' << (n - 2) % denom << '\n';
   return 0;
 }
