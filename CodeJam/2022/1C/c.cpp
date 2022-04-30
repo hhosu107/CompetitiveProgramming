@@ -5,19 +5,20 @@
 #include<bitset>
 using namespace std;
 
-// C. ASeDatAb
-// Database stores values as records that hold 8-bit bin strings.
-// Each record is 8-bit binary string.
-// indexed from left to right, 0~7.
-// When an instruction to set a specific record to a new value V is received,
-// Do the following:
-// 1. Choose r \in [0, 7], W = rotate_right(V, r), i.e., w = V[8-r:7] +
-// V[0:7-r].
-// 2. Replace X = X ^ W.
-// 3. Return the number of bits that are 1 in the new value to the user.
-// No matter of the initial value, a use can make the record as 00000000 with
-// instructions up to 300.
-
+/* C
+machines 1 ~ M, direct link of pair with priority 1 ~ M * (M - 1) / 2.
+routing algorithm: aggresive, i.e., will route all traffic
+from a machine through the highest priority link connected to it.
+It makes some groups of machines isolated from others.
+Machine m uses a link l iff l is the highest priority link connected to m.
+Link is active if it is used by at least one of the two machines it connects.
+Given the link priorities, the original network becomes partitioned into disjoint intranets.
+Two machines belong to the same intranet iff there is some path btwn them using only active links.
+Now investigate the extent of the problem
+Interested in knowing probability of there being exactly K intranets
+if the priorities are assigned uniformly at random from among the (M * (M - 1) / 2)! ways.
+Input for each case: M, K. 1<=K<=M/2. represent it as p/q, gcd(p, q) = 1, i.e., p*q^-1 mod (10^9 + 7).
+*/
 int main(){
   int ans, N;
   int T;

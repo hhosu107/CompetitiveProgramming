@@ -3,34 +3,49 @@
 #include<algorithm>
 #include<vector>
 #include<string>
+#include<climits>
 using namespace std;
 
 
-/* B. N customers, each has P products to inflate.
- * Each has target pressure.
- * Can inflate products in any order but cannot change customer order.
- * Must inflate all of the products before do the next customer.
- * The problem: air pressure buttons can change only by 1 pascal per press.
- * How can minimize the number of buttons to be pressed?
- * Initial pressure = 0.
- */
 using ll = long long;
 
-/* Sol)
- * If n = 1, pressure = max(pressures).
- * But we have to adapt after that by watching next customer's pressure distrib.
- * Suppose ith customer has ended with pressure p_i.
- * suppose i+1th customer has min_pressure px_i+1 and max_pressure py_i+1.
- * Can we just stop p_i+1 as one of the min/max? I think we cannot.
- */
 int main(){
-  std::ios_base::sync_with_stdio(false);
-  std::cin.tie(nullptr);
-  std::cout.tie(nullptr);
+  //std::ios_base::sync_with_stdio(false);
+  //std::cin.tie(nullptr);
+  //std::cout.tie(nullptr);
   int T;
   cin >> T;
   for (int t=1; t<=T; t++){
+    int n, p;
+    cin >> n >> p;
+    vector<vector<ll>> pr_minmax(n, vector<ll>(2));
+    for(int i=0; i<n; i++) {
+      pr_minmax[i][0] = 2147483647;
+      pr_minmax[i][1] = -2147483648;
+    }
+    ll temp;
+    for(int i=0; i<n; i++) {
+      for(int j=0; j<p; j++) {
+        cin >> temp;
+        pr_minmax[i][0] = min(pr_minmax[i][0], temp);
+        pr_minmax[i][1] = max(pr_minmax[i][1], temp);
+      }
+    }
+    vector<vector<ll>> dp(n + 1, vector<ll>(2));
+    ll last_maxmin[2] = {0, 0};
+    for(int i=1; i<=n; i++) {
+      ll increasing_mins[2], decreasing_mins[2];
+      increasing_mins[0] = dp[i-1][0] + abs(last_maxmin[0] - pr_minmax[i-1][0]) + (pr_minmax[i-1][1] - pr_minmax[i-1][0]);
+      increasing_mins[1] = dp[i-1][1] + abs(last_maxmin[1] - pr_minmax[i-1][0]) + (pr_minmax[i-1][1] - pr_minmax[i-1][0]);
+      dp[i][0] = min(increasing_mins[0], increasing_mins[1]);
+      decreasing_mins[0] = dp[i-1][0] + abs(last_maxmin[0] - pr_minmax[i-1][1]) + (pr_minmax[i-1][1] - pr_minmax[i-1][0]);
+      decreasing_mins[1] = dp[i-1][1] + abs(last_maxmin[1] - pr_minmax[i-1][1]) + (pr_minmax[i-1][1] - pr_minmax[i-1][0]);
+      dp[i][1] = min(decreasing_mins[0], decreasing_mins[1]);
+      last_maxmin[0] = pr_minmax[i-1][1];
+      last_maxmin[1] = pr_minmax[i-1][0];
+    }
     cout << "Case #" << t << ": ";
+    cout << min(dp[n][0], dp[n][1]) << endl;
   }
   return 0;
 }
