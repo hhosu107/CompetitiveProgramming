@@ -85,6 +85,7 @@ int main () {
         internal_mixed = true;
         break;
       }
+      char curr_left, curr_right; 
       if (left_end[i].size() == 1) {
         int x = *left_end[i].begin();
         if (used[x]) {
@@ -94,7 +95,8 @@ int main () {
           part += s[x];
           used[x] = true;
         }
-      }
+        curr_right = s[x][s[x].length() - 1];
+      } else curr_right = (char)('A' + i);
       left_end[i] = set<int>();
       if (right_end[i].size() == 1) {
         int x = *right_end[i].begin();
@@ -105,8 +107,42 @@ int main () {
           part = s[x] + part;
           used[x] = true;
         }
-      }
+        curr_left = s[x][0];
+      } else curr_left = (char)('A' + i);
       right_end[i] = set<int>();
+      unc.push_back(part);
+    }
+    vector<bool> unc_used(unc.size(), false);
+    int unc_used_cnt = 0;
+    int unc_index = 0;
+    while(unc_used_cnt < unc.size()) {
+      if (unc_used[unc_index]) {
+        unc_index++;
+        continue;
+      }
+      char curr_left = unc[unc_index][0];
+      char curr_right = unc[unc_index][unc[unc_index].length() - 1];
+      deque<string> q;
+      q.push_back(unc[unc_index]);
+      bool con_found = false;
+      do {
+        con_found = false;
+        for(int i=0; i<unc.size(); i++) {
+          if (unc_used[i]) continue;
+          if (unc[i][0] == curr_right) {
+            q.push_back(unc[i]);
+            curr_right = unc[i][unc[i].length() - 1];
+            con_found = true;
+            break;
+          } else if (unc[i][unc[i].length() - 1] == curr_left) {
+            q.push_front(unc[i]);
+            curr_left = unc[i][0];
+            con_found = true;
+            break;
+          }
+        }
+      }while(con_found);
+      unc_index++;
     }
     if (internal_mixed) {
       cout << "IMPOSSIBLE\n";
