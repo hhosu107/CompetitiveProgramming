@@ -14,4 +14,6 @@ pair<const_iterator,const_iterator>
    equal_range ( const key_type& k ) const;
 for_each(InputIterator first, InputIterator last, function fn): from first (inclusive) to last (exclusive), do fn.
 In this case, for(unordered_map<key, T>::iterator x = range.first; x != range.second; x++) works.
+* Rather than using .find() != .end(), use .count(). It performs null search if
+* .count() == 0.
 */
