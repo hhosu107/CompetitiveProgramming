@@ -3,7 +3,7 @@ using namespace std;
 
 vector<int> is_cycle;
 
-int dfs(int start, int path_len, map<int, int> &cycle, map<int, int> &graph) {
+int dfs(int start, int path_len, unordered_map<int, int> &cycle, unordered_map<int, int> &graph) {
   int next_node = graph[start];
   if (is_cycle[next_node] != -1) {
     is_cycle[start] = 0;
@@ -34,14 +34,14 @@ int main () {
     cin >> n;
     vector<int> pt(n);
     int arr;
-    map<int, int> graph;
+    unordered_map<int, int> graph;
     for(int i=0; i<n; i++) {
       cin >> arr;
       graph[i] = arr - 1;
     }
     is_cycle = vector<int>(n, -1);
     for(int i=0; i<n; i++) {
-      map<int, int> cycle;
+      unordered_map<int, int> cycle;
       cycle[i] = 0;
       if (is_cycle[i] != -1) continue;
       dfs(i, 1, cycle, graph);
