@@ -54,3 +54,4 @@ int main () {
   cout << ans_left + 1 << " " << ans_right + 1 << endl;
   return 0;
 }
+// https://thunderinthesky.tistory.com/entry/elice-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%E2%85%A0-4-%ED%83%90%EC%9A%95%EC%A0%81-%EA%B8%B0%EB%B2%95
