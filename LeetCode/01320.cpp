@@ -32,26 +32,5 @@ public:
             }
         }
         return dp[26][26][0];
-        /*
-        int minCost(String str){
-        char[] S = str.toCharArray();
-        int N = S.length, ans = Integer.MAX_VALUE, dp[][][] = new int[26][26][N+1];
-        for(int z = N-1; z >= 0; --z){
-            for(int x = 0; x < 26; ++x){
-                for(int y = 0; y < 26; ++y){
-                    dp[x][y][z] = 
-                        Math.min(cost(x,S[z]-'a')+dp[S[z]-'a'][y][z+1],
-                                 cost(y,S[z]-'a')+dp[x][S[z]-'a'][z+1]);
-                    if (z == 0){
-                        ans = Math.min(ans, dp[x][y][z]);
-                    }
-                }
-            }
-        }
-        return ans;
-    }
-    int cost(int x, int y){
-        return Math.abs(x/6-y/6)+Math.abs(x%6-y%6);
-    }*/
     }
 };
