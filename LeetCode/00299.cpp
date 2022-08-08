@@ -25,3 +25,6 @@ public:
         return hint_str;
     }
 };
+// This generates number baseball strike/balls.
+// Reveresely, how to guess secret from strike/balls?
+// This one would be the key of wordle game.
