@@ -1,5 +1,4 @@
-#include<iostream>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define INF 1000000000
@@ -11,29 +10,20 @@ int bit_dp[16][65536];
 // already visited,
 // which can be judged with (1 << i) & visited.
 int n;
+int max_vis;
 
 int dfs(int city, int visited) {
-  int i;
-  if(visited == (1 << n) - 1) {
+  if(visited == max_vis) {
     return (adj[city][0] == 0 ? INF : adj[city][0]); // records distance from the last city to the started city.
   }
-  if (bit_dp[city][visited] != INF) return bit_dp[city][visited];
-  for(int i=0; i<n; i++) {
-    int next_city = (1 << i);
-    if (!(next_city & visited) && adj[city][i]) {
-      int next_visited = (visited | next_city);
-      int rem_dist = dfs(i, next_visited);
-      bit_dp[city][visited] = min(bit_dp[city][visited], rem_dist + adj[city][i]); // records remaining distance.
-    }
+  if (bit_dp[city][visited] != -1) return bit_dp[city][visited];
+  bit_dp[city][visited] = INF;
+  for(int i=1; i<n; i++) {
+    if (adj[city][i] == 0) continue;
+    if (((1 << i) & visited) == (1 << i)) continue;
+    bit_dp[city][visited] = min(bit_dp[city][visited], dfs(i, visited | (1 << i)) + adj[city][i]); // records remaining distance.
   }
   return bit_dp[city][visited];
-}
-
-void cleanup () {
-  for(int i=0; i<n; i++) {
-    for(int j=0; j<(1 << n); j++)
-      bit_dp[i][j] = INF;
-  }
 }
 
 int main () {
@@ -44,7 +34,8 @@ int main () {
   for(int i=0; i<n; i++)
     for(int j=0; j<n; j++)
       cin >> adj[i][j];
-  cleanup();
+  max_vis = (1 << n) - 1;
+  memset(bit_dp, -1, sizeof(bit_dp));
   int min_tsp = dfs(0, 1);
   cout << min_tsp << '\n';
   return 0;
