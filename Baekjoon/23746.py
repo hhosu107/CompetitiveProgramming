@@ -6,5 +6,5 @@ for i in range(n):
     comp[key] = pat
 compstr = input()
 s, e = map(lambda x: int(x), input().split())
-decompstr = ''.join(map(lambda x: comp[x], compstr))
-print(decompstr[s-1:e])
+decompstr = "".join(map(lambda x: comp[x], compstr))
+print(decompstr[s - 1 : e])

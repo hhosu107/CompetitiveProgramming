@@ -1,4 +1,5 @@
 from decimal import *
+
 n = int(input())
 values = []
 for i in range(n):

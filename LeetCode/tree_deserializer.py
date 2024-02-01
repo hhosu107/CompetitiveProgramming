@@ -11,7 +11,10 @@ class TreeNode:
 def deserialize(string):
     if string == "{}":
         return None
-    nodes = [None if val == "null" else TreeNode(int(val)) for val in string.strip("[]{}").split(",")]
+    nodes = [
+        None if val == "null" else TreeNode(int(val))
+        for val in string.strip("[]{}").split(",")
+    ]
     kids = nodes[::-1]
     root = kids.pop()
     for node in nodes:
