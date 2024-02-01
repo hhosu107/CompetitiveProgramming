@@ -5,6 +5,7 @@ class ListNode:
         self.prev = None
         self.next = None
 
+
 class LRUCache:
 
     def __init__(self, capacity: int):
@@ -14,12 +15,12 @@ class LRUCache:
         self.tail = ListNode(0, 0)
         self.head.next = self.tail
         self.tail.prev = self.head
-        
+
     def remove(self, node: ListNode):
         node.prev.next = node.next
         node.next.prev = node.prev
         self.nodeMap.pop(node.key)
-    
+
     def insertToHead(self, node: ListNode):
         self.head.next.prev = node
         node.next = self.head.next

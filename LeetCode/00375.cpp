@@ -10,19 +10,21 @@ Improvements: does efficient solution exist?
 
 class Solution {
 public:
-    int getMoneyAmount(int n) {
-        vector<vector<int>> dp(n+1, vector<int>(n+1));
-        for (int i=1; i<n; i++) {
-            dp[i][i+1] = i;
-        }
-        for (int gap=2; gap<n; gap++) {
-            for(int i=1; i<=n-gap; i++) {
-                dp[i][i+gap] = 40000; // Maximum cost < 200 * 200
-                for (int j=1; j<gap; j++) {
-                    dp[i][i + gap] = min(dp[i][i + gap], i + j + max(dp[i][i + j - 1], dp[i + j + 1][i + gap]));
-                }
-            }
-        }
-        return dp[1][n];
+  int getMoneyAmount(int n) {
+    vector<vector<int>> dp(n + 1, vector<int>(n + 1));
+    for (int i = 1; i < n; i++) {
+      dp[i][i + 1] = i;
     }
+    for (int gap = 2; gap < n; gap++) {
+      for (int i = 1; i <= n - gap; i++) {
+        dp[i][i + gap] = 40000; // Maximum cost < 200 * 200
+        for (int j = 1; j < gap; j++) {
+          dp[i][i + gap] =
+              min(dp[i][i + gap],
+                  i + j + max(dp[i][i + j - 1], dp[i + j + 1][i + gap]));
+        }
+      }
+    }
+    return dp[1][n];
+  }
 };

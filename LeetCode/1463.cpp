@@ -14,31 +14,31 @@
 
 class Solution {
 public:
-    int cherryPickup(vector<vector<int>>& grid) {
-        int n = grid[0].size();
-        int m = grid.size();
-        vector<vector<vector<int>>> dp(2, vector<vector<int>>(n, vector<int>(n)));
-        for(int i=m-1; i>=0; i--) {
-            for(int j=0; j<n; j++) {
-                for(int k=0; k<n; k++) {
-                    int result = grid[i][j];
-                    if (j != k)
-                        result += grid[i][k];
-                    if (i != m - 1) {
-                        int max_val = 0;
-                        for(int col1 = j - 1; col1 <= j + 1; col1++) {
-                            for(int col2 = k - 1; col2 <= k + 1; col2++) {
-                                if (col1 >= 0 && col1 < n && col2 >= 0 && col2 < n) {
-                                    max_val = max(max_val, dp[(i+1) % 2][col1][col2]);
-                                }
-                            }
-                        }
-                        result += max_val;
-                    }
-                    dp[i % 2][j][k] = result;
+  int cherryPickup(vector<vector<int>> &grid) {
+    int n = grid[0].size();
+    int m = grid.size();
+    vector<vector<vector<int>>> dp(2, vector<vector<int>>(n, vector<int>(n)));
+    for (int i = m - 1; i >= 0; i--) {
+      for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+          int result = grid[i][j];
+          if (j != k)
+            result += grid[i][k];
+          if (i != m - 1) {
+            int max_val = 0;
+            for (int col1 = j - 1; col1 <= j + 1; col1++) {
+              for (int col2 = k - 1; col2 <= k + 1; col2++) {
+                if (col1 >= 0 && col1 < n && col2 >= 0 && col2 < n) {
+                  max_val = max(max_val, dp[(i + 1) % 2][col1][col2]);
                 }
+              }
             }
+            result += max_val;
+          }
+          dp[i % 2][j][k] = result;
         }
-        return dp[0][0][n-1];
+      }
     }
+    return dp[0][0][n - 1];
+  }
 };

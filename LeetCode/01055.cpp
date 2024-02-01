@@ -1,27 +1,29 @@
 class Solution {
 public:
-    int shortestWay(string word1, string word2) {
-        vector<vector<int>> indices(word1.length(), vector<int>(26));
-        indices[word1.length() - 1][word1[word1.length() - 1] - 'a'] = word1.length();
-        for(int i=word1.length() - 2; i>=0; i--) {
-            indices[i] = vector<int>(indices[i + 1]);
-            indices[i][word1[i] - 'a'] = i + 1;
-        }
-        int j = 0, res = 1;
-        for (int i=0; i<word2.length(); i++) {
-            if (j == word1.length()) {
-                j = 0;
-                res += 1;
-            }
-            j = indices[j][word2[i] - 'a'];
-            if (indices[0][word2[i] - 'a'] == 0) return -1; //invalid; next concatenation is impossible.
-            if (j == 0) {
-                res += 1;
-                i--;
-            }
-        }
-        return res;
+  int shortestWay(string word1, string word2) {
+    vector<vector<int>> indices(word1.length(), vector<int>(26));
+    indices[word1.length() - 1][word1[word1.length() - 1] - 'a'] =
+        word1.length();
+    for (int i = word1.length() - 2; i >= 0; i--) {
+      indices[i] = vector<int>(indices[i + 1]);
+      indices[i][word1[i] - 'a'] = i + 1;
     }
+    int j = 0, res = 1;
+    for (int i = 0; i < word2.length(); i++) {
+      if (j == word1.length()) {
+        j = 0;
+        res += 1;
+      }
+      j = indices[j][word2[i] - 'a'];
+      if (indices[0][word2[i] - 'a'] == 0)
+        return -1; // invalid; next concatenation is impossible.
+      if (j == 0) {
+        res += 1;
+        i--;
+      }
+    }
+    return res;
+  }
 };
 
 // https://leetcode.com/problems/shortest-way-to-form-string/discuss/330938/Accept-is-not-enough-to-get-a-hire.-Interviewee-4-follow-up

@@ -20,20 +20,20 @@ public:
 
 class Solution {
 public:
-    Node* findRoot(vector<Node*> tree) {
-        long long int valueSum = 0;
-        for(Node *node: tree) {
-            valueSum += node->val;
-            for (Node *n: node->children)
-                valueSum -= n->val;
-        }
-        for (Node *node : tree) {
-            if (node->val == valueSum) {
-                return node;
-            }
-        }
-        return nullptr;
+  Node *findRoot(vector<Node *> tree) {
+    long long int valueSum = 0;
+    for (Node *node : tree) {
+      valueSum += node->val;
+      for (Node *n : node->children)
+        valueSum -= n->val;
     }
+    for (Node *node : tree) {
+      if (node->val == valueSum) {
+        return node;
+      }
+    }
+    return nullptr;
+  }
 };
 // Idea: We have an array of all nodes, where childs are all nodes except one.
 // Thus, we watch all childs value twice, whereas the root's value once.

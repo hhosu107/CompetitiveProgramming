@@ -17,7 +17,8 @@ class Solution:
 
         left, right = next(leftGenerator), next(rightGenerator)
         while left < right:
-            if left + right == k: return True
+            if left + right == k:
+                return True
             if left + right < k:
                 left = next(leftGenerator)
             else:

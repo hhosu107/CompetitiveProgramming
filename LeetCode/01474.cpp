@@ -10,28 +10,28 @@
  */
 class Solution {
 public:
-    ListNode* deleteNodes(ListNode* head, int m, int n) {
-        ListNode* it = new ListNode(0, head);
-        int leave_cnt = 0;
-        int remove_cnt = 0;
-        while(it != nullptr) {
-            if (leave_cnt == m && remove_cnt == n) {
-                leave_cnt = 0;
-                remove_cnt = 0;
-                continue;
-            }
-            if (leave_cnt < m) {
-                it = it->next;
-                leave_cnt++;
-            } else if (remove_cnt < n) {
-                if (it->next != nullptr) {
-                    it->next = it->next->next;
-                } else {
-                    break;
-                }
-                remove_cnt++;
-            }
+  ListNode *deleteNodes(ListNode *head, int m, int n) {
+    ListNode *it = new ListNode(0, head);
+    int leave_cnt = 0;
+    int remove_cnt = 0;
+    while (it != nullptr) {
+      if (leave_cnt == m && remove_cnt == n) {
+        leave_cnt = 0;
+        remove_cnt = 0;
+        continue;
+      }
+      if (leave_cnt < m) {
+        it = it->next;
+        leave_cnt++;
+      } else if (remove_cnt < n) {
+        if (it->next != nullptr) {
+          it->next = it->next->next;
+        } else {
+          break;
         }
-        return head;
+        remove_cnt++;
+      }
     }
+    return head;
+  }
 };

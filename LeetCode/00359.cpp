@@ -1,18 +1,16 @@
 class Logger {
 public:
-    map<string, int> uniq;
-    Logger() {
-        uniq = map<string, int>();
+  map<string, int> uniq;
+  Logger() { uniq = map<string, int>(); }
+
+  bool shouldPrintMessage(int timestamp, string message) {
+    if (uniq.find(message) == uniq.end() || uniq[message] + 10 <= timestamp) {
+      uniq[message] = timestamp;
+      return true;
+    } else {
+      return false;
     }
-    
-    bool shouldPrintMessage(int timestamp, string message) {
-        if (uniq.find(message) == uniq.end() || uniq[message] + 10 <= timestamp) {
-            uniq[message] = timestamp;
-            return true;
-        } else {
-            return false;
-        }
-    }
+  }
 };
 
 /**

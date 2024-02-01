@@ -1,38 +1,38 @@
 using pii = pair<int, int>;
 class SnapshotArray {
 public:
-    vector<vector<int>> snapshot_timing;
-    vector<vector<int>> snapshot_value;
-    int num_snapshots;
-    queue<pii> caught_values;
-    SnapshotArray(int length) {
-        snapshot_timing = vector<vector<int>>(length, vector<int>(1, -1));
-        snapshot_value = vector<vector<int>>(length, vector<int>(1, 0));
-        caught_values = queue<pii>();
-        num_snapshots = 0;
+  vector<vector<int>> snapshot_timing;
+  vector<vector<int>> snapshot_value;
+  int num_snapshots;
+  queue<pii> caught_values;
+  SnapshotArray(int length) {
+    snapshot_timing = vector<vector<int>>(length, vector<int>(1, -1));
+    snapshot_value = vector<vector<int>>(length, vector<int>(1, 0));
+    caught_values = queue<pii>();
+    num_snapshots = 0;
+  }
+
+  void set(int index, int val) { caught_values.push({index, val}); }
+
+  int snap() {
+    while (!caught_values.empty()) {
+      pii head = caught_values.front();
+      caught_values.pop();
+      snapshot_timing[head.first].push_back(num_snapshots);
+      snapshot_value[head.first].push_back(head.second);
     }
-    
-    void set(int index, int val) {
-        caught_values.push({index, val});
-    }
-    
-    int snap() {
-        while(!caught_values.empty()) {
-            pii head = caught_values.front();
-            caught_values.pop();
-            snapshot_timing[head.first].push_back(num_snapshots);
-            snapshot_value[head.first].push_back(head.second);
-        }
-        num_snapshots++;
-        return num_snapshots - 1;
-    }
-    
-    int get(int index, int snap_id) {
-        auto snap_idx = upper_bound(snapshot_timing[index].begin(), snapshot_timing[index].end(), snap_id);
-        snap_idx--;
-        cout << snap_idx - snapshot_timing[index].begin() << endl;
-        return snapshot_value[index][(int)(snap_idx - snapshot_timing[index].begin())];
-    }
+    num_snapshots++;
+    return num_snapshots - 1;
+  }
+
+  int get(int index, int snap_id) {
+    auto snap_idx = upper_bound(snapshot_timing[index].begin(),
+                                snapshot_timing[index].end(), snap_id);
+    snap_idx--;
+    cout << snap_idx - snapshot_timing[index].begin() << endl;
+    return snapshot_value[index]
+                         [(int)(snap_idx - snapshot_timing[index].begin())];
+  }
 };
 
 /**

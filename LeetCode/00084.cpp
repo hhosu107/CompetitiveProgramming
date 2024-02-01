@@ -1,34 +1,34 @@
 class Solution {
 public:
-    int largestRectangleArea(vector<int>& dp) {
-        stack<int> s;
-        s.push(-1);
-        int maxarea = 0;
-        for(int i=0; i<dp.size(); i++) {
-            while(s.top() != -1 && dp[s.top()] >= dp[i]) {
-                int curr_height = dp[s.top()];
-                s.pop();
-                int curr_width = i - s.top() - 1;
-                maxarea = max(maxarea, curr_height * curr_width);
-            }
-            s.push(i);
-        }
-        while(s.top() != -1) {
-            int curr_height = dp[s.top()];
-            s.pop();
-            int curr_width = dp.size() - s.top() - 1;
-            maxarea = max(maxarea, curr_height * curr_width);
-        }
-        return maxarea;
+  int largestRectangleArea(vector<int> &dp) {
+    stack<int> s;
+    s.push(-1);
+    int maxarea = 0;
+    for (int i = 0; i < dp.size(); i++) {
+      while (s.top() != -1 && dp[s.top()] >= dp[i]) {
+        int curr_height = dp[s.top()];
+        s.pop();
+        int curr_width = i - s.top() - 1;
+        maxarea = max(maxarea, curr_height * curr_width);
+      }
+      s.push(i);
     }
+    while (s.top() != -1) {
+      int curr_height = dp[s.top()];
+      s.pop();
+      int curr_width = dp.size() - s.top() - 1;
+      maxarea = max(maxarea, curr_height * curr_width);
+    }
+    return maxarea;
+  }
 };
 
 // Idea: Stack에 왼쪽부터 height가 오름차순이 되도록 index를 집어넣는다. (-1
 // index에서는 높이가 0)
-// 각 index마다 stack top이 현재 histogram 높이보다 높거나 같다면, stack top 높이를
-// 기록해두고, stack에서 pop하고, 다음 stack top의 바로 다음 index부터 현재
-// index의 직전 index까지 width를 늘려서 rectangular 넓이를 계산한다.
-// Q) 왜 이게 성립하는가?
+// 각 index마다 stack top이 현재 histogram 높이보다 높거나 같다면, stack top
+// 높이를 기록해두고, stack에서 pop하고, 다음 stack top의 바로 다음 index부터
+// 현재 index의 직전 index까지 width를 늘려서 rectangular 넓이를 계산한다. Q) 왜
+// 이게 성립하는가?
 //
 //
 //     --

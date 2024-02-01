@@ -1,37 +1,39 @@
 class Solution {
 public:
-    using ll = long long;
-    map<int, int> n_to_k;
-    bool canCross(vector<int>& stones) {
-        
-        using pll = pair<ll, ll>;
-        using pii = pair<int, int>;
-        if (stones[1] > 1) return false;
-        ll max_n = stones[stones.size() - 1];
-        ll tri_sum = 1;
-        ll tri_k = 1;
-        while (tri_sum <= max_n) {
-            n_to_k[(int)tri_sum] = (int)tri_k;
-            tri_k += 1;
-            tri_sum += tri_k;
-        }
-        map<int, set<pii>> possible_prev_jumpsize;
-        possible_prev_jumpsize[1] = set<pii>{{0, 1}};
-        for(int i=2; i<stones.size(); i++) {
-            /* What is max possible steps? that is k satisfying (k + 1)k / 2 <= n < (k + 2)(k + 1) / 2. */
-            auto it = n_to_k.upper_bound(stones[i]);
-            it--;
-            ll max_k = it->second;
-            for(int j=i-1; j>0 && stones[i] - stones[j] <= max_k; j--) {
-                for (pii p : possible_prev_jumpsize[j]) {
-                    if (abs(p.second - (stones[i] - stones[j])) <= 1) {
-                        possible_prev_jumpsize[i].insert({j, stones[i] - stones[j]});
-                    }
-                }
-            }
-        }
-        return !possible_prev_jumpsize[stones.size() - 1].empty();
+  using ll = long long;
+  map<int, int> n_to_k;
+  bool canCross(vector<int> &stones) {
+
+    using pll = pair<ll, ll>;
+    using pii = pair<int, int>;
+    if (stones[1] > 1)
+      return false;
+    ll max_n = stones[stones.size() - 1];
+    ll tri_sum = 1;
+    ll tri_k = 1;
+    while (tri_sum <= max_n) {
+      n_to_k[(int)tri_sum] = (int)tri_k;
+      tri_k += 1;
+      tri_sum += tri_k;
     }
+    map<int, set<pii>> possible_prev_jumpsize;
+    possible_prev_jumpsize[1] = set<pii>{{0, 1}};
+    for (int i = 2; i < stones.size(); i++) {
+      /* What is max possible steps? that is k satisfying (k + 1)k / 2 <= n < (k
+       * + 2)(k + 1) / 2. */
+      auto it = n_to_k.upper_bound(stones[i]);
+      it--;
+      ll max_k = it->second;
+      for (int j = i - 1; j > 0 && stones[i] - stones[j] <= max_k; j--) {
+        for (pii p : possible_prev_jumpsize[j]) {
+          if (abs(p.second - (stones[i] - stones[j])) <= 1) {
+            possible_prev_jumpsize[i].insert({j, stones[i] - stones[j]});
+          }
+        }
+      }
+    }
+    return !possible_prev_jumpsize[stones.size() - 1].empty();
+  }
 };
 
 // Amortized time complexity: O(n^2 sqrt(n)).

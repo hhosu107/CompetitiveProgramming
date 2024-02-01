@@ -10,14 +10,14 @@ public:
 // Can this be O(n)?
 class Solution {
 public:
-    void wiggleSort(vector<int>& nums) {
-        for (int i = 0; i + 1 < nums.size(); ++ i) {
-            if ((i % 2) == (nums[i] < nums[i + 1])) {
-                swap(nums[i], nums[i + 1]);
-            }
-        }
+  void wiggleSort(vector<int> &nums) {
+    for (int i = 0; i + 1 < nums.size(); ++i) {
+      if ((i % 2) == (nums[i] < nums[i + 1])) {
+        swap(nums[i], nums[i + 1]);
+      }
     }
-    /* proof
+  }
+  /* proof
      * Do with induction.
      * 1. nums.size() == 1 True.
      * 2. nums.size() == 2 : swap only if nums[0] >= nums[1].

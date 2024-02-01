@@ -16,26 +16,27 @@ public:
  */
 class Solution {
 public:
-    int depth(Node* p) {
-        if (p->parent == nullptr) return 0;
-        return 1 + depth(p->parent);
+  int depth(Node *p) {
+    if (p->parent == nullptr)
+      return 0;
+    return 1 + depth(p->parent);
+  }
+  Node *lowestCommonAncestor(Node *p, Node *q) {
+    int dp = depth(p);
+    int dq = depth(q);
+    while (dp != dq) {
+      if (dp > dq) {
+        p = p->parent;
+        dp--;
+      } else {
+        q = q->parent;
+        dq--;
+      }
     }
-    Node* lowestCommonAncestor(Node* p, Node * q) {
-        int dp = depth(p);
-        int dq = depth(q);
-        while(dp != dq) {
-            if (dp > dq) {
-                p = p->parent;
-                dp--;
-            } else {
-                q = q->parent;
-                dq--;
-            }
-        }
-        while (p != q) {
-            p = p->parent;
-            q = q->parent;
-        }
-        return p;
+    while (p != q) {
+      p = p->parent;
+      q = q->parent;
     }
+    return p;
+  }
 };
