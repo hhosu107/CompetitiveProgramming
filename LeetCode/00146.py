@@ -7,7 +7,6 @@ class ListNode:
 
 
 class LRUCache:
-
     def __init__(self, capacity: int):
         self.nodeMap = {}
         self.capacity = capacity

@@ -30,7 +30,6 @@ _WRONG_ANSWER_MSG = "N"
 
 
 class IO(object):
-
     def ReadInput(self):
         return input()
 
@@ -43,7 +42,6 @@ class IO(object):
 
 
 class JudgeSingleCase(object):
-
     def __init__(self, max_inspection, io):
         self.io = io
         self.io.SetCurrentCase(self)
